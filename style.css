@@ -1,0 +1,21 @@
+.highlight-row {
+    background-color: indianred;
+}
+
+.content {
+    width: 70%;
+    margin: 0px auto;
+    float: none;
+}
+
+.center {
+    text-align: center;
+}
+
+.search_result tr {
+    cursor: pointer;
+}
+
+td {
+    text-align: left;
+}
