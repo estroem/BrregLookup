@@ -1,13 +1,16 @@
 var app = angular.module('lookup', []);
 
 app.controller('AppCtrl', function ($scope, $http) {
+    $scope.filterData = {};
+    $scope.page = 0;
+
     $scope.search = function () {
         if($scope.orgname.length >= 3) {
             var url = "http://data.brreg.no/enhetsregisteret/enhet.json";
             var params = {
                 page: $scope.page,
                 size: 10,
-                $filter: "startswith(navn,'" + $scope.orgname + "')"
+                $filter: makeFilter($scope)
             };
 
             $http.get(url, {params: params}, {})
@@ -15,7 +18,7 @@ app.controller('AppCtrl', function ($scope, $http) {
                     $scope.clearLookup();
                     $scope.search_result = response.data;
                     $scope.page = params.page;
-                })
+                });
         } else {
             $scope.clearSearch();
         }
@@ -23,7 +26,7 @@ app.controller('AppCtrl', function ($scope, $http) {
     
     $scope.clearSearch = function () {
         $scope.search_result = null;
-    }
+    };
 
     $scope.lookup = function (num) {
         if(num > 0) {
@@ -84,4 +87,25 @@ function nextUrl(data) {
             return data[i].href;
     }
     return null;
+}
+
+function joinArray(sep, a) {
+    var str = "";
+    for(var i in a) {
+        if(a[i] != "") {
+            if(i != 0) {
+                 str += sep;
+            }
+            str += a[i]
+        }
+    }
+    return str;
+}
+
+function makeFilter(scope) {
+    return joinArray(" and ", [
+        scope.orgname ? "startswith(navn,'" + scope.orgname + "')" : "",
+        scope.filterData.min_employees > 0 ? "antallAnsatte ge " + scope.filterData.min_employees : "",
+        scope.filterData.max_employees ? "antallAnsatte le " + scope.filterData.max_employees : ""
+    ]);
 }

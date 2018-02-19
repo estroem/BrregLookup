@@ -23,7 +23,7 @@
             <h5 class="form-row">
                 Søk på organisasjonsnummer
             </h5>
-            <div class="form-row align-items-center">
+            <div class="form-row">
                 <input type="text" ng-model="orgnum" class="form-control col">
                 <input type="button" ng-click="lookup(orgnum)" value="Søk" class="btn btn-primary col">
             </div>
@@ -33,12 +33,13 @@
             <h5 class="form-row">
                 Søk på navn
             </h5>
-            <div class="form-row align-items-center">
+            <div class="form-row">
                 <input type="text" ng-model="orgname" ng-change="page = 0; search()" class="form-control col">
-                <select class="form-control col">
-                    <option>a</option>
-                    <option>b</option>
-                </select>
+                <button ng-click="showFilters = !showFilters" class="btn btn-warning dropdown-toggle">Filtrer</button>
+            </div>
+            <div ng-if="showFilters" class="form-row alert alert-warning">
+                Antall ansatte fra <input type="text" ng-model="filterData.min_employees" ng-change="search()" class="form-control col">
+                til <input type="text" ng-model="filterData.max_employees" ng-change="search()" class="form-control col">
             </div>
         </div>
 
@@ -65,6 +66,7 @@
             <table class="table">
                 <tr><td>Stiftelsesdato:</td><td>{{org_data.stiftelsesdato}}</td></tr>
                 <tr><td>Dato registrert i enhetsregisteret</td><td>{{org_data.registreringsdatoEnhetsregisteret}}</td></tr>
+                <tr><td>Hjemmeside</td><td><a href="http://{{org_data.hjemmeside}}" target="_blank">{{org_data.hjemmeside}}</a></td></tr>
                 <tr><td>Målfrom</td><td>{{org_data.maalform}}</td></tr>
                 <tr><td>Registrert i frivillighetsregisteret</td><td>{{org_data.registrertIFrivillighetsregisteret ? "Ja" : "Nei"}}</td></tr>
                 <tr><td>Registrert i matvareregisteret</td><td>{{org_data.registrertIMvaregisteret}}</td></tr>
