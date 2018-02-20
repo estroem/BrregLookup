@@ -85,9 +85,19 @@
                     <tr><td>Organisasjonsform</td><td>{{org_data.orgform.beskrivelse}}</td></tr>
                     <tr><td>Institusjonell sektorkode</td><td>{{ k = org_data.institusjonellSektorkode; k.kode + ' - ' + k.beskrivelse}}</td></tr>
                     <tr><td>Næringskode</td><td>{{ k = org_data.naeringskode1; k.kode + ' - ' + k.beskrivelse}}</td></tr>
-                    <tr><td>Forretningsadresse</td>
+                    <tr>
+                        <td>Forretningsadresse</td>
                         <td>
                             {{ a = org_data.forretningsadresse; a.adresse }}<br>
+                            {{ a.postnummer }} {{ a.poststed }}<br>
+                            {{ a.land }}<br>
+                            <a href="http://maps.google.com/?q={{ a.adresse + ' ' + a.postnummer + ' ' + a.poststed}}" target="_blank">Se kart</a>
+                        </td>
+                    </tr>
+                    <tr ng-if="org_data.postadresse">
+                        <td>Postadresse</td>
+                        <td>
+                            {{ a = org_data.postadresse; a.adresse }}<br>
                             {{ a.postnummer }} {{ a.poststed }}<br>
                             {{ a.land }}
                         </td>
