@@ -16,7 +16,7 @@
 
 <div class="content">
     <div class="center">
-        <h1><a href="html">Søk i brønnøysund&shy;registrene</a></h1>
+        <h2>Søk i brønnøysund&shy;registrene</h2>
         <hr>
 
         <div class="alert alert-info">
@@ -24,8 +24,8 @@
                 Søk på organisasjonsnummer
             </h5>
             <div class="form-row">
-                <input type="text" ng-model="orgnum" class="form-control col">
-                <input type="button" ng-click="lookup(orgnum)" value="Søk" class="btn btn-primary col">
+                <input type="text" ng-model="orgnum" class="form-control col-md-8">
+                <input type="button" ng-click="lookup(orgnum)" value="Søk" class="btn btn-primary col-md-3 offset-md-1">
             </div>
         </div>
 
@@ -34,8 +34,8 @@
                 Søk på navn
             </h5>
             <div class="form-row">
-                <input type="text" ng-model="orgname" ng-change="page = 0; search()" class="form-control col">
-                <button ng-click="showFilters = !showFilters" class="btn btn-warning dropdown-toggle">Filtrer</button>
+                <input type="text" ng-model="orgname" ng-change="page = 1; search()" class="form-control col-md-8">
+                <button ng-click="showFilters = !showFilters" class="btn btn-warning dropdown-toggle col-md-3 offset-md-1">Filtrer</button>
             </div>
             <div ng-if="showFilters" class="alert alert-warning mt-3">
                 <div class="form-row">
@@ -52,11 +52,17 @@
         <hr>
 
         <div ng-if="search_result && !org_data">
-            <table class="table table-hover search_result">
+            <table ng-if="search_result.data" class="table table-hover search_result">
+                <tr>
+                    <th>Org. nummer</th>
+                    <th>Navn</th>
+                </tr>
                 <tr ng-repeat="line in search_result.data" ng-class="{'highlight-row': line.konkurs == 'J'}" ng-click="lookup(line.organisasjonsnummer)">
                     <td>{{line.organisasjonsnummer}}</td><td>{{line.navn}}</td>
                 </tr>
             </table>
+
+            <i ng-if="!search_result.data">Ingen treff</i>
 
             <a href="" ng-if="hasPrev()" ng-click="prev()"><<</a>
             <span ng-if="hasPrev() || hasNext()">{{ page }}</span>

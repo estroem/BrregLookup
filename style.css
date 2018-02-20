@@ -16,6 +16,10 @@
     cursor: pointer;
 }
 
-td {
+.search_result tr td:first-child {
+    width: 20%;
+}
+
+th, td {
     text-align: left;
 }

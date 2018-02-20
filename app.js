@@ -2,13 +2,11 @@ var app = angular.module('lookup', []);
 
 app.controller('AppCtrl', function ($scope, $http) {
     $scope.filterData = {};
-    $scope.page = 0;
 
     $scope.search = function () {
         if($scope.orgname.length >= 3) {
             var url = "http://data.brreg.no/enhetsregisteret/enhet.json";
             var params = {
-                page: $scope.page,
                 size: 10,
                 $filter: makeFilter($scope)
             };
@@ -17,7 +15,6 @@ app.controller('AppCtrl', function ($scope, $http) {
                 .then(function (response) {
                     $scope.clearLookup();
                     $scope.search_result = response.data;
-                    $scope.page = params.page;
                 });
         } else {
             $scope.clearSearch();
@@ -40,7 +37,6 @@ app.controller('AppCtrl', function ($scope, $http) {
     };
 
     $scope.clearLookup = function () {
-        $scope.orgnum = "";
         $scope.org_data = null;
     };
 
