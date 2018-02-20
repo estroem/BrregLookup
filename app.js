@@ -106,6 +106,8 @@ function makeFilter(scope) {
     return joinArray(" and ", [
         scope.orgname ? "startswith(navn,'" + scope.orgname + "')" : "",
         scope.filterData.min_employees > 0 ? "antallAnsatte ge " + scope.filterData.min_employees : "",
-        scope.filterData.max_employees ? "antallAnsatte le " + scope.filterData.max_employees : ""
+        scope.filterData.max_employees ? "antallAnsatte le " + scope.filterData.max_employees : "",
+        scope.filterData.from_date ? "stiftelsesdato ge datetime'" + new Date(scope.filterData.from_date).toJSON() + "'": "",
+        scope.filterData.to_date ? "stiftelsesdato le datetime'" + new Date(scope.filterData.to_date).toJSON() + "'" : "",
     ]);
 }

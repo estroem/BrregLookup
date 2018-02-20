@@ -37,9 +37,15 @@
                 <input type="text" ng-model="orgname" ng-change="page = 0; search()" class="form-control col">
                 <button ng-click="showFilters = !showFilters" class="btn btn-warning dropdown-toggle">Filtrer</button>
             </div>
-            <div ng-if="showFilters" class="form-row alert alert-warning">
-                Antall ansatte fra <input type="text" ng-model="filterData.min_employees" ng-change="search()" class="form-control col">
-                til <input type="text" ng-model="filterData.max_employees" ng-change="search()" class="form-control col">
+            <div ng-if="showFilters" class="alert alert-warning mt-3">
+                <div class="form-row">
+                    <span class="col-md-3 m-auto">Antall ansatte fra</span><input type="text" ng-model="filterData.min_employees" ng-change="search()" class="form-control col-md-4">
+                    <span class="col-md-1 m-auto">til</span><input type="text" ng-model="filterData.max_employees" ng-change="search()" class="form-control col-md-4">
+                </div>
+                <div class="form-row">
+                    <span class="col-md-3 m-auto">Stiftet dato fra</span><input type="text" ng-model="filterData.from_date" ng-change="search()" class="form-control col-md-4">
+                    <span class="col-md-1 m-auto">til</span><input type="text" ng-model="filterData.to_date" ng-change="search()" class="form-control col-md-4">
+                </div>
             </div>
         </div>
 
