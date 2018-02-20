@@ -44,7 +44,7 @@ app.controller('AppCtrl', function ($scope, $http) {
         if(url = prevUrl($scope.search_result.links)) {
             $http.get(url, {}, {})
                 .then(function (response) {
-                    $scope.page--;
+                    $scope.page = response.data.page.page + 1;
                     $scope.search_result = response.data;
                 });
         }
@@ -54,7 +54,7 @@ app.controller('AppCtrl', function ($scope, $http) {
         if(url = nextUrl($scope.search_result.links)) {
             $http.get(url, {}, {})
                 .then(function (response) {
-                    $scope.page++;
+                    $scope.page = response.data.page.page + 1;
                     $scope.search_result = response.data;
                 });
         }
