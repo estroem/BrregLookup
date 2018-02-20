@@ -23,3 +23,16 @@
 th, td {
     text-align: left;
 }
+
+.org-data tr td:first-child {
+    width: 40%;
+}
+
+.reg {
+    font-weight: bold;
+}
+
+.no-reg {
+    color: grey;
+    text-decoration: line-through;
+}

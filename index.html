@@ -75,27 +75,33 @@
             <h5 ng-if="org_data.konkurs == 'J'" style="color: red">KONKURS</h5>
             <hr>
 
-            <table class="table">
-                <tr><td>Stiftelsesdato:</td><td>{{org_data.stiftelsesdato}}</td></tr>
-                <tr><td>Dato registrert i enhetsregisteret</td><td>{{org_data.registreringsdatoEnhetsregisteret}}</td></tr>
-                <tr><td>Hjemmeside</td><td><a href="http://{{org_data.hjemmeside}}" target="_blank">{{org_data.hjemmeside}}</a></td></tr>
-                <tr><td>Målfrom</td><td>{{org_data.maalform}}</td></tr>
-                <tr><td>Registrert i frivillighetsregisteret</td><td>{{org_data.registrertIFrivillighetsregisteret ? "Ja" : "Nei"}}</td></tr>
-                <tr><td>Registrert i matvareregisteret</td><td>{{org_data.registrertIMvaregisteret}}</td></tr>
-                <tr><td>Registrert i foretaksregisteret</td><td>{{org_data.registrertIForetaksregisteret}}</td></tr>
-                <tr><td>Registrert i stiftelsesregisteret</td><td>{{org_data.registrertIStiftelsesregisteret}}</td></tr>
-                <tr><td>Antall ansatte</td><td>{{org_data.antallAnsatte}}</td></tr>
-                <tr><td>Organisasjonsform</td><td>{{org_data.orgform.beskrivelse}}</td></tr>
-                <tr><td>Institusjonell sektorkode</td><td>{{ k = org_data.institusjonellSektorkode; k.kode + ' - ' + k.beskrivelse}}</td></tr>
-                <tr><td>Næringskode</td><td>{{ k = org_data.naeringskode1; k.kode + ' - ' + k.beskrivelse}}</td></tr>
-                <tr><td>Forrestningsadresse</td>
-                    <td>
-                        {{ a = org_data.forretningsadresse; a.adresse }}<br>
-                        {{ a.postnummer }} {{ a.poststed }}<br>
-                        {{ a.land }}
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <table class="table org-data col-md-9">
+                    <tr><td>Stiftelsesdato</td><td>{{org_data.stiftelsesdato}}</td></tr>
+                    <tr><td>Dato registrert i enhetsregisteret</td><td>{{org_data.registreringsdatoEnhetsregisteret}}</td></tr>
+                    <tr ng-if="org_data.hjemmeside"><td>Hjemmeside</td><td><a href="http://{{org_data.hjemmeside}}" target="_blank">{{org_data.hjemmeside}}</a></td></tr>
+                    <tr><td>Målfrom</td><td>{{org_data.maalform}}</td></tr>
+                    <tr><td>Antall ansatte</td><td>{{org_data.antallAnsatte}}</td></tr>
+                    <tr><td>Organisasjonsform</td><td>{{org_data.orgform.beskrivelse}}</td></tr>
+                    <tr><td>Institusjonell sektorkode</td><td>{{ k = org_data.institusjonellSektorkode; k.kode + ' - ' + k.beskrivelse}}</td></tr>
+                    <tr><td>Næringskode</td><td>{{ k = org_data.naeringskode1; k.kode + ' - ' + k.beskrivelse}}</td></tr>
+                    <tr><td>Forretningsadresse</td>
+                        <td>
+                            {{ a = org_data.forretningsadresse; a.adresse }}<br>
+                            {{ a.postnummer }} {{ a.poststed }}<br>
+                            {{ a.land }}
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="col-md-3 alert alert-info" style="height:10em;">
+                    <h6>Registrert i</h6>
+                    <span ng-class="org_data.registrertIFrivillighetsregisteret == 'J' ? 'reg' : 'no-reg'">Frivillighetsregisteret</span><br>
+                    <span ng-class="org_data.registrertIMvaregisteret == 'J' ? 'reg' : 'no-reg'">Matvareregisteret</span><br>
+                    <span ng-class="org_data.registrertIForetaksregisteret == 'J' ? 'reg' : 'no-reg'">Foretaksregisteret</span><br>
+                    <span ng-class="org_data.registrertIStiftelsesregisteret == 'J' ? 'reg' : 'no-reg'">Stiftelsesregisteret</span>
+                </div>
+            </div>
 
             <a href="" ng-click="clearLookup()">Tilbake</a>
         </div>
