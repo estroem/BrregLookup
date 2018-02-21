@@ -25,7 +25,13 @@ th, td {
 }
 
 .org-data tr td:first-child {
-    width: 40%;
+    width: 50%;
+}
+
+.back {
+    display: inline-block;
+    position: absolute;
+    left: 0;
 }
 
 .reg {

@@ -22,10 +22,12 @@
             <h5 class="form-row">
                 Søk på organisasjonsnummer
             </h5>
-            <div class="form-row">
-                <input type="text" ng-model="orgnum" class="form-control col-md-8">
-                <input type="button" ng-click="lookup(orgnum)" value="Søk" class="btn btn-primary col-md-3 offset-md-1">
-            </div>
+            <form ng-submit="lookup(orgnum)">
+                <div class="form-row">
+                    <input type="text" ng-model="orgnum" class="form-control col-md-8">
+                    <input type="submit" value="Søk" class="btn btn-primary col-md-3 offset-md-1">
+                </div>
+            </form>
         </div>
 
         <div class="alert alert-info">
@@ -69,53 +71,62 @@
         </div>
 
         <div ng-if="org_data">
-            <h4>{{org_data.navn}}</h4>
-            <h6>Org. nr: {{org_data.organisasjonsnummer}}</h6>
-            <h5 ng-if="org_data.konkurs == 'J'" style="color: red">KONKURS</h5>
+            <div class="row justify-content-between">
+                <div class="col-sm-1" style="margin: auto">
+                    <a href="" ng-click="clearLookup()">Tilbake</a>
+                </div>
+
+                <div class="col-sm-10">
+                    <h4>{{org_data.navn}}</h4>
+                    <h6>Org. nr: {{org_data.organisasjonsnummer}}</h6>
+                    <h5 ng-if="org_data.konkurs == 'J'" style="color: red">KONKURS</h5>
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
             <hr>
 
             <div class="row">
-                <table class="table org-data col-md-9">
-                    <tr><td>Stiftelsesdato</td><td>{{org_data.stiftelsesdato}}</td></tr>
-                    <tr><td>Dato registrert i enhetsregisteret</td><td>{{org_data.registreringsdatoEnhetsregisteret}}</td></tr>
-                    <tr ng-if="org_data.hjemmeside"><td>Hjemmeside</td><td><a href="http://{{org_data.hjemmeside}}" target="_blank">{{org_data.hjemmeside}}</a></td></tr>
-                    <tr><td>Målfrom</td><td>{{org_data.maalform}}</td></tr>
-                    <tr><td>Antall ansatte</td><td>{{org_data.antallAnsatte}}</td></tr>
-                    <tr><td>Konkurs</td><td>{{org_data.konkurs == "J" ? "Ja" : "Nei" }}</td></tr>
-                    <tr><td>Under avvikling</td><td>{{org_data.under_avvikling == "J" ? "Ja" : "Nei" }}</td></tr>
-                    <tr><td>Under tvangsavvikling eller tvangsoppløsning</td><td>{{org_data.underTvangsavviklingEllerTvangsopplosning == "J" ? "Ja" : "Nei" }}</td></tr>
-                    <tr><td>Organisasjonsform</td><td>{{org_data.orgform.beskrivelse}}</td></tr>
-                    <tr><td>Institusjonell sektorkode</td><td>{{ k = org_data.institusjonellSektorkode; k.kode + ' - ' + k.beskrivelse}}</td></tr>
-                    <tr><td>Næringskode</td><td>{{ k = org_data.naeringskode1; k.kode + ' - ' + k.beskrivelse}}</td></tr>
-                    <tr>
-                        <td>Forretningsadresse</td>
-                        <td>
-                            {{ a = org_data.forretningsadresse; a.adresse }}<br>
-                            {{ a.postnummer }} {{ a.poststed }}<br>
-                            {{ a.land }}<br>
-                            <a href="http://maps.google.com/?q={{ a.adresse + ' ' + a.postnummer + ' ' + a.poststed}}" target="_blank">Se kart</a>
-                        </td>
-                    </tr>
-                    <tr ng-if="org_data.postadresse">
-                        <td>Postadresse</td>
-                        <td>
-                            {{ a = org_data.postadresse; a.adresse }}<br>
-                            {{ a.postnummer }} {{ a.poststed }}<br>
-                            {{ a.land }}
-                        </td>
-                    </tr>
-                </table>
+                <div class="col-lg-9">
+                    <table class="table org-data col-md-9">
+                        <tr><td>Stiftelsesdato</td><td>{{org_data.stiftelsesdato}}</td></tr>
+                        <tr><td>Dato registrert i enhetsregisteret</td><td>{{org_data.registreringsdatoEnhetsregisteret}}</td></tr>
+                        <tr ng-if="org_data.hjemmeside"><td>Hjemmeside</td><td><a href="http://{{org_data.hjemmeside}}" target="_blank">{{org_data.hjemmeside}}</a></td></tr>
+                        <tr><td>Målfrom</td><td>{{org_data.maalform}}</td></tr>
+                        <tr><td>Antall ansatte</td><td>{{org_data.antallAnsatte}}</td></tr>
+                        <tr><td>Konkurs</td><td>{{org_data.konkurs == "J" ? "Ja" : "Nei" }}</td></tr>
+                        <tr><td>Under avvikling</td><td>{{org_data.under_avvikling == "J" ? "Ja" : "Nei" }}</td></tr>
+                        <tr><td>Under tvangsavvikling eller tvangsoppløsning</td><td>{{org_data.underTvangsavviklingEllerTvangsopplosning == "J" ? "Ja" : "Nei" }}</td></tr>
+                        <tr><td>Organisasjonsform</td><td>{{org_data.orgform.beskrivelse}}</td></tr>
+                        <tr><td>Institusjonell sektorkode</td><td>{{ k = org_data.institusjonellSektorkode; k.kode + ' - ' + k.beskrivelse}}</td></tr>
+                        <tr><td>Næringskode</td><td>{{ k = org_data.naeringskode1; k.kode + ' - ' + k.beskrivelse}}</td></tr>
+                        <tr>
+                            <td>Forretningsadresse</td>
+                            <td>
+                                {{ a = org_data.forretningsadresse; a.adresse }}<br>
+                                {{ a.postnummer }} {{ a.poststed }}<br>
+                                {{ a.land }}<br>
+                                <a href="http://maps.google.com/?q={{ a.adresse + ' ' + a.postnummer + ' ' + a.poststed}}" target="_blank">Se kart</a>
+                            </td>
+                        </tr>
+                        <tr ng-if="org_data.postadresse">
+                            <td>Postadresse</td>
+                            <td>
+                                {{ a = org_data.postadresse; a.adresse }}<br>
+                                {{ a.postnummer }} {{ a.poststed }}<br>
+                                {{ a.land }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                <div class="col-md-3 alert alert-info" style="height:10em;">
+                <div class="col-lg-3 alert alert-info" style="height:10em;">
                     <h6>Registrert i</h6>
                     <span ng-class="org_data.registrertIFrivillighetsregisteret == 'J' ? 'reg' : 'no-reg'">Frivillighetsregisteret</span><br>
-                    <span ng-class="org_data.registrertIMvaregisteret == 'J' ? 'reg' : 'no-reg'">Matvareregisteret</span><br>
+                    <span ng-class="org_data.registrertIMvaregisteret == 'J' ? 'reg' : 'no-reg'">Mvaregisteret</span><br>
                     <span ng-class="org_data.registrertIForetaksregisteret == 'J' ? 'reg' : 'no-reg'">Foretaksregisteret</span><br>
                     <span ng-class="org_data.registrertIStiftelsesregisteret == 'J' ? 'reg' : 'no-reg'">Stiftelsesregisteret</span>
                 </div>
             </div>
-
-            <a href="" ng-click="clearLookup()">Tilbake</a>
         </div>
     </div>
 </div>
