@@ -5,7 +5,7 @@ app.controller('AppCtrl', function ($scope, $http) {
 
     $scope.search = function () {
         if($scope.orgname.length >= 3) {
-            var url = "http://data.brreg.no/enhetsregisteret/enhet.json";
+            var url = "https://data.brreg.no/enhetsregisteret/enhet.json";
             var params = {
                 size: 10,
                 $filter: makeFilter($scope)
@@ -27,7 +27,7 @@ app.controller('AppCtrl', function ($scope, $http) {
 
     $scope.lookup = function (num) {
         if(num > 0) {
-            var url = "http://data.brreg.no/enhetsregisteret/enhet/" + num + ".json";
+            var url = "https://data.brreg.no/enhetsregisteret/enhet/" + num + ".json";
 
             $http.get(url, {}, {})
                 .then(function (response) {
